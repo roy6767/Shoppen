@@ -20,26 +20,13 @@ public class WebSecurityConfig  {
     @Autowired
     private ShopUserDetailsService userDetailsService;
 
-
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth,PasswordEncoder passwordEncoder) 
       throws Exception {
         auth
         .userDetailsService(userDetailsService)
         .passwordEncoder(passwordEncoder);
-        //   .inMemoryAuthentication()
-        //   .passwordEncoder(passwordEncoder)
-        //   .withUser("user@user.se")
-        //   .password(passwordEncoder.encode("stefan"))
-        //   .roles("USER")
-        //   .and()
-        //   .withUser("admin@user.se")
-        //   .password(passwordEncoder.encode("stefan"))
-        //   .roles("ADMIN");
     }
-
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -56,7 +43,7 @@ public class WebSecurityConfig  {
                         .defaultSuccessUrl("/", true)
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/login") // You can use the same login page if needed
+                        .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                 )
                 .logout(logout -> logout
@@ -67,12 +54,7 @@ public class WebSecurityConfig  {
         return http.build();
     }
 
-
     public WebSecurityConfig() {
         super();
     }
-
-
-
-
 }
