@@ -2,7 +2,6 @@ package se.systementor.supershoppen1.shop;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,15 +36,13 @@ public class SeedData implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // adminAccount();
-        // userAccount();
-        // category();
+        System.out.println("Seeding data...");
         exampleCategories();
         exampleProducts();
         exampleUsers();
         exampleSubscribers();
+        System.out.println("Seeding completed.");
     }
-
 
     private int findCatId(List<Category> categories, String name) {
         for (Category category : categories) {
@@ -53,8 +50,6 @@ public class SeedData implements CommandLineRunner {
         }
         return -1;
     }
-
-
 
     private void exampleCategories(){
         var existing = categoryService.getAll();
@@ -72,15 +67,12 @@ public class SeedData implements CommandLineRunner {
         var existingUsers = userDetailsService.getAll();
         addUser(existingUsers, "admin@user.se", "ROLE_ADMIN");
         addUser(existingUsers, "user@user.se", "ROLE_USER");
-
     }
 
     private void exampleSubscribers(){
         var existingSubscribers = subscriberService.getAll();
         addSubscriber(existingSubscribers,"user@user.se");
     }
-
-
 
     private void exampleProducts(){
         var existingCats = categoryService.getAll();
@@ -180,7 +172,6 @@ public class SeedData implements CommandLineRunner {
         }    
         subscriberService.addSubscriber(email);
     }
-
 
     private void addCategory(List<Category> existing, String name,String description){
         for (Category cat : existing) {

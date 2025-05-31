@@ -23,7 +23,7 @@ public class ShopUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        UserAccount user = getUser(username);
+        UserAccount user = userRepository.findByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
@@ -39,14 +39,6 @@ public class ShopUserDetailsService implements UserDetailsService {
             user.getPassword(),
             ga );
         return springUser;
-    }
-
-    private UserAccount getUser(String username) {
-        for(UserAccount r : userRepository.findAll())
-        {
-            if(r.getEmail().equals(username)) return r;
-        }
-        return null;
     }
 
     public List<UserAccount> getAll(){
